@@ -1,21 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 
-const handleSubmit = (event) => {
-  event.preventDefault();
-}
-
-async function searchItems (array) {
-  try {
-    const searchTerms = array.join('+');
-    const placesArray = [];
-    const searchData = await axios.get(`https://www.amazon.com/s?k=${searchTerms}`)
-    console.log('search data', searchData.data)
-  } catch (error) {
-    console.error(error)
-  }
-}
-
 async function fetchData() {
   try {
     const placesArray = [];
@@ -45,19 +30,38 @@ export default function Search(props) {
   //https://www.amazon.com/s?k=hand+cream&page=3&qid=1586824474&ref=sr_pg_3
   //https://www.amazon.com/s?k=hand+cream&page=3 works too - only need this information 
   //can set this to go to like 50 but only function if data returned 
-  const [error, setError] = useState("")
+
+  //need form - use state, state changes when form value changes
+  //on submit - make axios call to get data 
+  const [error, setError] = useState("");
+  const [search, setSearch] = useState('');
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    async function searchItems (array) {
+      try {
+        const searchTerms = array.join('+');
+        const placesArray = [];
+        const searchData = await axios.get(`https://www.amazon.com/s?k=${searchTerms}`)
+        console.log('search data', searchData.data)
+      } catch (error) {
+        console.error(error)
+      }
+    }
+  }
+  
   return (
     <div>
-      <form onSubmit={handleSubmit}>
+      <form autoComplete="off" onSubmit={handleSubmit}>
     <input 
     type="text"
-     name="name" 
+     name={search} 
      placeholder="Search here"
      onChange={(event) => {
       setSearch(event.target.value)
       setError('')}
     }
-    value={props.search}
+    value={search}
      />
       </form>
     </div>
