@@ -1,29 +1,29 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 
-async function fetchData() {
-  try {
-    const placesArray = [];
-    const placesData = await axios.get(`http://localhost:3001/users/${id}`)
-    for (let place of placesData.data.places) {
-      const placeObject = {
-        name: place.name,
-        id: place.id,
-        latitude: parseFloat(place.latitude),
-        longitude: parseFloat(place.longitude)
-      }
-      placesArray.push(placeObject)
-    }
-    setAllPlaces(state => ({
-      places: [...allPlaces.places, ...placesArray]
-    }))
-    setOnRender(state => ({
-      places: [...allPlaces.places, ...placesArray]
-    }))
-  } catch (error) {
-    console.error(error)
-  }
-}
+// async function fetchData() {
+//   try {
+//     const placesArray = [];
+//     const placesData = await axios.get(`http://localhost:3001/users/${id}`)
+//     for (let place of placesData.data.places) {
+//       const placeObject = {
+//         name: place.name,
+//         id: place.id,
+//         latitude: parseFloat(place.latitude),
+//         longitude: parseFloat(place.longitude)
+//       }
+//       placesArray.push(placeObject)
+//     }
+//     setAllPlaces(state => ({
+//       places: [...allPlaces.places, ...placesArray]
+//     }))
+//     setOnRender(state => ({
+//       places: [...allPlaces.places, ...placesArray]
+//     }))
+//   } catch (error) {
+//     console.error(error)
+//   }
+// }
 
 export default function Search(props) {
   //search form that splits input by spaces and makes axios call 
@@ -51,7 +51,7 @@ export default function Search(props) {
       const searchTerms = string.split(' ').join('+');
       const placesArray = [];
       const searchData = await axios.get(`https://www.amazon.com/s?k=${searchTerms}`)
-      console.log('search data', searchData.data)
+      console.log('search data', JSON.parse(searchData.data))
     } catch (error) {
       console.error(error)
     }
@@ -65,7 +65,7 @@ export default function Search(props) {
           placeholder="Search here"
           onChange={(event) => {
             setSearch(event.target.value)
-            setError('')
+            setError('');
           }
           }
           value={search}
