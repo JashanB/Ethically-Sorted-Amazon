@@ -38,31 +38,39 @@ export default function Search(props) {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    async function searchItems (array) {
-      try {
-        const searchTerms = array.join('+');
-        const placesArray = [];
-        const searchData = await axios.get(`https://www.amazon.com/s?k=${searchTerms}`)
-        console.log('search data', searchData.data)
-      } catch (error) {
-        console.error(error)
-      }
+    if (search === '') {
+      setError(state => 'Search form cannot be blank');
+    } else {
+      searchItems(search);
+
     }
   }
-  
+
+  async function searchItems(string) {
+    try {
+      const searchTerms = string.split(' ').join('+');
+      const placesArray = [];
+      const searchData = await axios.get(`https://www.amazon.com/s?k=${searchTerms}`)
+      console.log('search data', searchData.data)
+    } catch (error) {
+      console.error(error)
+    }
+  }
   return (
     <div>
       <form autoComplete="off" onSubmit={handleSubmit}>
-    <input 
-    type="text"
-     name={search} 
-     placeholder="Search here"
-     onChange={(event) => {
-      setSearch(event.target.value)
-      setError('')}
-    }
-    value={search}
-     />
+        <input
+          type="text"
+          name={search}
+          placeholder="Search here"
+          onChange={(event) => {
+            setSearch(event.target.value)
+            setError('')
+          }
+          }
+          value={search}
+        />
+        <section className="search-validation">{error}</section>
       </form>
     </div>
   )
