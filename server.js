@@ -1,11 +1,13 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-
+const cors = require('cors');
 const app = express();
 const port = process.env.PORT || 3001;
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cors())
+
 
 app.get('/api', (req, res) => {
   res.send({ express: 'Hello From Express' });
