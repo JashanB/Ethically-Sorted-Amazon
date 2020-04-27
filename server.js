@@ -4,6 +4,8 @@ const cors = require('cors');
 const app = express();
 const port = process.env.PORT || 3001;
 const axios = require('axios')
+const {parse, stringify} = require('flatted/cjs');
+
 
 
 app.use(bodyParser.json());
@@ -24,7 +26,7 @@ app.post('/api', (req, res) => {
   async function searchData (searchTerms) {
     try {
       const amazonData = await axios.get(`https://www.amazon.com/s?k=${searchTerms}`);
-      res.send({hi: 'does this work', data: amazonData})
+      res.send({hi: 'does this work', data: stringify(amazonData)})
       // return amazonData
     } catch(error) {
       console.error(error)
