@@ -53,7 +53,7 @@ export default function Search(props) {
       const searchData = await axios.post(`/api`, {
         searchTerms: searchTerms
       })
-      console.log('search data', JSON.parse(searchData))
+      console.log('search data', searchData.data)
     } catch (error) {
       console.error(error)
     }

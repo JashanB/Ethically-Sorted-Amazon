@@ -24,7 +24,7 @@ app.post('/api', (req, res) => {
   async function searchData (searchTerms) {
     try {
       const amazonData = await axios.get(`https://www.amazon.com/s?k=${searchTerms}`);
-      res.json({hi: 'does this work', data: amazonData})
+      res.send({hi: 'does this work', data: amazonData})
       // return amazonData
     } catch(error) {
       console.error(error)
