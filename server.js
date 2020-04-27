@@ -11,6 +11,13 @@ app.get('/api', (req, res) => {
   res.send({ express: 'Hello From Express' });
 });
 
+app.post('/api', (req, res) => {
+  console.log('req', req)
+  console.log('res', res)
+  res.send({ express: 'Hello From Express' });
+});
+
+// axios.post(`https://www.amazon.com/s?k=${searchTerms}
 // app.post('/api/world', (req, res) => {
 //   console.log(req.body);
 //   res.send(

@@ -50,7 +50,9 @@ export default function Search(props) {
     try {
       const searchTerms = string.split(' ').join('+');
       const placesArray = [];
-      const searchData = await axios.get(`https://www.amazon.com/s?k=${searchTerms}`)
+      const searchData = await axios.post(`http://localhost:3001/api`, {
+        searchTerms: searchTerms
+      })
       console.log('search data', JSON.parse(searchData.data))
     } catch (error) {
       console.error(error)
