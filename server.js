@@ -3,6 +3,8 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const app = express();
 const port = process.env.PORT || 3001;
+const axios = require('axios')
+
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -14,10 +16,23 @@ app.get('/api', (req, res) => {
 });
 
 app.post('/api', (req, res) => {
-  console.log('req', req)
-  console.log('res', res)
-  res.send({ express: 'Hello From Express' });
+  console.log('req', req.body)
+  // console.log('res', res)
+  // res.send({ express: 'Hello From Express' });
+  // const data = searchData(req.body.searchTerms);
+  // console.log('data', data)
+  async function searchData (searchTerms) {
+    try {
+      const amazonData = await axios.get(`https://www.amazon.com/s?k=${searchTerms}`);
+      res.json({hi: 'does this work', data: amazonData})
+      // return amazonData
+    } catch(error) {
+      console.error(error)
+    }
+  }
+  searchData(req.body.searchTerms)
 });
+
 
 // axios.post(`https://www.amazon.com/s?k=${searchTerms}
 // app.post('/api/world', (req, res) => {
