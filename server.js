@@ -25,17 +25,20 @@ app.post('/api', (req, res) => {
   // res.send({ express: 'Hello From Express' });
   // const data = searchData(req.body.searchTerms);
   // console.log('data', data)
-  const $ = searchData(req.body.searchTerms);
-  const exampel = $('.s-result-list s-search-results sg-row')
-
+  //stars class a-icon-alt
+  //num of reviews class a-size-base
+  // const $ = searchData(req.body.searchTerms);
+  // const example = $('.s-result-list s-search-results sg-row')
+  console.log(searchData(req.body.searchTerms))
 });
 
 async function searchData (searchTerms) {
   try {
-    const amazonData = await axios.get(`https://www.amazon.com/s?k=${searchTerms}`);
+    const {data: html} = await axios.get(`https://www.amazon.com/s?k=${searchTerms}`);
     console.log(stringify(amazonData))
     // res.send({hi: 'does this work', data: stringify(amazonData)})
-    return cheerio.load(amazonData.data);
+    // return cheerio.load(amazonData.data);
+    return html
   } catch(error) {  
     console.error(error);
   }
