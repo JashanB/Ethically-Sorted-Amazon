@@ -34,11 +34,14 @@ app.post('/api', (req, res) => {
 
 async function searchData (searchTerms) {
   try {
-    const {data: html} = await axios.get(`https://www.amazon.com/s?k=${searchTerms}`);
-    console.log(stringify(amazonData))
+    const {data: html} = await axios.get(`https://www.amazon.com/s?k=${searchTerms}`, {
+      headers: {'User-Agent': "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; .NET CLR 1.1.4322)"}
+  });
+    // console.log(stringify(amazonData))
     // res.send({hi: 'does this work', data: stringify(amazonData)})
     // return cheerio.load(amazonData.data);
-    return html
+    console.log(html)
+    return html;
   } catch(error) {  
     console.error(error);
   }
